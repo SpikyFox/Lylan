@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>For Ly Lan 💘</title>
+  <style>
+    :root{
+      --bg1:#ff4d6d;
+      --bg2:#ffb3c1;
+      --card:#ffffffee;
+      --text:#2b2b2b;
+      --yes:#22c55e;
+      --no:#ef4444;
+    }
+
+    *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+    html,body{ height:100%; margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    body{
+      overflow:hidden;
+      background: radial-gradient(1200px 900px at 20% 10%, var(--bg2), var(--bg1));
+      color: var(--text);
+    }
+
+    .hearts{
+      position:fixed; inset:0; pointer-events:none; overflow:hidden;
+      opacity:.9;
+    }
+    .heart{
+      position:absolute;
+      width:14px; height:14px;
+      transform: rotate(45deg);
+      background: rgba(255,255,255,.75);
+      border-radius: 3px;
+      animation: floatUp linear infinite;
+    }
+    .heart:before,.heart:after{
+      content:"";
+      position:absolute;
+      width:14px; height:14px;
+      background: inherit;
+      border-radius: 50%;
+    }
+    .heart:before{ left:-7px; top:0; }
+    .heart:after{ top:-7px; left:0; }
+
+    @keyframes floatUp{
+      from{ transform: translateY(20vh) rotate(45deg); opacity:0; }
+      10%{ opacity:1; }
+      to{ transform: translateY(-120vh) rotate(45deg); opacity:0; }
+    }
+
+    .wrap{
+      position:relative;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+    }
+    .card{
+      width:min(520px, 100%);
+      background: var(--card);
+      border-radius: 22px;
+      padding: 22px 18px;
+      text-align:center;
+      box-shadow: 0 20px 60px rgba(0,0,0,.18);
+    }
+    h1{
+      margin: 6px 0 10px;
+      font-size: clamp(24px, 6vw, 34px);
+    }
+    .name{
+      display:inline-block;
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: rgba(255,77,109,.15);
+      font-weight: 800;
+    }
+    .buttons{
+      display:flex;
+      gap: 12px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top: 10px;
+      position:relative;
+      min-height: 72px;
+    }
+    button{
+      border:0;
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor:pointer;
+      width: min(220px, 45vw);
+    }
+    #yesBtn{ background: var(--yes); color:white; }
+    #noBtn{
+      background: var(--no);
+      color:white;
+      position:absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0;
+    }
+
+    .modal{
+      position:fixed; inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      background: rgba(0,0,0,.25);
+    }
+    .modalCard{
+      width:min(520px, 100%);
+      background:white;
+      border-radius: 20px;
+      padding: 18px;
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hearts" id="hearts"></div>
+
+  <div class="wrap">
+    <div class="card">
+      <div style="font-size:34px;">💘🎈</div>
+      <h1>
+        Hey <span class="name">Ly Lan</span><br/>
+        Will you be my Valentine?
+      </h1>
+
+      <div class="buttons" id="btnArea">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 😅</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modalCard">
+      <h2>YAYYYY! 🥰💖</h2>
+      <p>Ly Lan, you just made my day. Happy Valentine’s! 🌹</p>
+      <button onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const hearts = document.getElementById('hearts');
+    for(let i=0;i<20;i++){
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.style.left = Math.random()*100 + 'vw';
+      h.style.animationDuration = (5 + Math.random()*5) + 's';
+      h.style.animationDelay = Math.random()*3 + 's';
+      hearts.appendChild(h);
+    }
+
+    const noBtn = document.getElementById('noBtn');
+    const btnArea = document.getElementById('btnArea');
+
+    function moveNo(){
+      const area = btnArea.getBoundingClientRect();
+      const btn = noBtn.getBoundingClientRect();
+      const x = Math.random()*(area.width - btn.width);
+      const y = Math.random()*(area.height - btn.height);
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+      noBtn.style.transform = 'none';
+    }
+
+    noBtn.addEventListener('mouseenter', moveNo);
+    noBtn.addEventListener('touchstart', function(e){ e.preventDefault(); moveNo(); }, {passive:false});
+    noBtn.addEventListener('click', function(e){ e.preventDefault(); moveNo(); });
+
+    document.getElementById('yesBtn').addEventListener('click', function(){
+      document.getElementById('modal').style.display = 'flex';
+    });
+
+    function closeModal(){
+      document.getElementById('modal').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
